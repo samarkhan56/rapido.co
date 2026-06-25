@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="bg-rapido-navy text-white">
       <div className="container-shell py-14">
-        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.15fr_0.65fr_0.82fr_0.82fr_0.86fr]">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.05fr_0.6fr_0.78fr_0.9fr_1.08fr]">
           <div>
             <div className="inline-flex w-full max-w-md rounded-lg bg-white p-6 shadow-blue-soft">
               <img src={rapidoWordmark} alt="Rapido Solutions Co." className="h-32 w-full object-contain" />
@@ -89,15 +89,15 @@ export default function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h3 className="text-sm font-extrabold uppercase tracking-[0.16em] text-rapido-cyan">Contact</h3>
             <div className="mt-5 grid gap-4 text-sm font-semibold text-blue-100">
               <a
                 href={`mailto:${contactDetails.email}`}
-                className="flex items-center gap-3 transition hover:text-white break-all"
+                className="flex min-w-0 items-start gap-3 transition hover:text-white"
               >
-                <Icon name="FiMail" className="h-4 w-4 shrink-0 text-white" />
-                {contactDetails.email}
+                <Icon name="FiMail" className="mt-0.5 h-4 w-4 shrink-0 text-white" />
+                <span className="min-w-0 break-words xl:whitespace-nowrap">{contactDetails.email}</span>
               </a>
               <a
                 href={`tel:${contactDetails.phone}`}
