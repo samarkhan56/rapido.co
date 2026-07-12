@@ -48,7 +48,7 @@ export default function Footer() {
   return (
     <footer className="bg-rapido-navy text-white">
       <div className="container-shell py-14">
-        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.05fr_0.6fr_0.78fr_0.9fr_1.08fr]">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 xl:grid-cols-[1.05fr_0.6fr_0.78fr_0.9fr_1.08fr]">
           <div>
             <div className="inline-flex w-full max-w-md rounded-lg bg-white p-6 shadow-blue-soft">
               <img src={rapidoWordmark} alt="Rapido Solutions Co." className="h-32 w-full object-contain" />
@@ -177,7 +177,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-blue-100 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center gap-3 border-t border-white/10 pt-6 text-center text-sm text-blue-100">
           <p>&copy; 2026 Rapido Solutions Co. All rights reserved.</p>
         </div>
       </div>
