@@ -19,7 +19,7 @@ export default function BackToTopButton() {
       {visible ? (
         <motion.a
           aria-label="Chat with Rapido Solutions Co. on WhatsApp"
-          className="fixed bottom-5 right-5 z-40 grid h-12 w-12 place-items-center rounded-lg bg-[#25D366] text-white shadow-blue-soft transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 focus:ring-offset-white"
+          className="fixed bottom-5 right-5 z-40 grid h-12 w-12 place-items-center rounded-full bg-[#25D366] text-white shadow-blue-soft transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 focus:ring-offset-white"
           href={whatsappHref}
           target="_blank"
           rel="noreferrer"
