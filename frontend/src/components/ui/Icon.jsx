@@ -55,6 +55,7 @@ import {
   FiX,
   FiZap
 } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 const icons = {
   FiActivity,
@@ -111,7 +112,8 @@ const icons = {
   FiUserCheck,
   FiUsers,
   FiX,
-  FiZap
+  FiZap,
+  FaWhatsapp
 };
 
 export default function Icon({ name, className = "", ariaHidden = true }) {

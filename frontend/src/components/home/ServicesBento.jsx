@@ -10,7 +10,7 @@ export default function ServicesBento() {
   const featuredServices = services.filter((service) => service.featured).slice(0, 4);
 
   return (
-    <section className="section-padding bg-white">
+    <section id="home-services" className="section-padding scroll-mt-24 bg-white">
       <div className="container-shell">
         <SectionHeader
           eyebrow="Solutions Command Center"

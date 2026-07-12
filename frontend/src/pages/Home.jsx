@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Hero from "../components/home/Hero";
 import ServicesBento from "../components/home/ServicesBento";
@@ -7,8 +8,36 @@ import WhyChooseRapido from "../components/home/WhyChooseRapido";
 import ProcessSection from "../components/home/ProcessSection";
 import ReviewsSection from "../components/home/ReviewsSection";
 import HomeCTA from "../components/home/HomeCTA";
+import Icon from "../components/ui/Icon";
 import { pageTransition } from "../utils/animations";
 import { usePageMeta } from "../utils/usePageMeta";
+
+function MobileScrollCue() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const updateVisibility = () => setVisible(window.scrollY < 80);
+    updateVisibility();
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", updateVisibility);
+  }, []);
+
+  return (
+    <div
+      className={`relative z-20 -mt-5 flex justify-center md:hidden transition duration-300 ${
+        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      }`}
+    >
+      <a
+        href="#home-services"
+        aria-label="Scroll to more content"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-blue-100 bg-white text-rapido-blue shadow-premium transition hover:-translate-y-0.5 hover:bg-rapido-mist"
+      >
+        <Icon name="FiChevronDown" className="h-6 w-6" />
+      </a>
+    </div>
+  );
+}
 
 export default function Home() {
   usePageMeta(
@@ -19,6 +48,7 @@ export default function Home() {
   return (
     <motion.main {...pageTransition}>
       <Hero />
+      <MobileScrollCue />
       <ServicesBento />
       <FinancialServicesPreview />
       <HumanResourceServicesPreview />

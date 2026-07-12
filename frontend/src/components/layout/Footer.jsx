@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { navLinks } from "../../data/navLinks";
 import { services } from "../../data/servicesData";
@@ -8,7 +9,42 @@ import Button from "../common/Button";
 import Icon from "../ui/Icon";
 import rapidoWordmark from "../../assets/logo/rapido-wordmark-cropped.png";
 
+const whatsappNumber = "+923313339840";
+const whatsappHref = "https://wa.me/923313339840";
+
+function MobileFooterAccordion({ title, items }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="rounded-lg border border-white/10 md:hidden">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left text-sm font-extrabold uppercase tracking-[0.14em] text-rapido-cyan"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        {title}
+        <Icon name={open ? "FiChevronUp" : "FiChevronDown"} className="h-5 w-5 text-white" />
+      </button>
+      <div className={`${open ? "grid" : "hidden"} gap-3 px-4 pb-4`}>
+        {items.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className="text-sm font-semibold text-blue-100 transition hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
+  const serviceLinks = navLinks.find((link) => link.label === "Services")?.children || [];
+  const projectLinks = navLinks.find((link) => link.label === "Projects")?.children || [];
+
   return (
     <footer className="bg-rapido-navy text-white">
       <div className="container-shell py-14">
@@ -41,7 +77,7 @@ export default function Footer() {
                       <Link
                         key={child.path}
                         to={child.path}
-                        className="pl-3 text-sm font-semibold text-blue-200 transition hover:text-white"
+                        className="hidden pl-3 text-sm font-semibold text-blue-200 transition hover:text-white md:inline"
                       >
                         {child.label}
                       </Link>
@@ -58,6 +94,11 @@ export default function Footer() {
                 )
               )}
             </div>
+          </div>
+
+          <div className="grid gap-3 md:hidden">
+            <MobileFooterAccordion title="Services" items={serviceLinks} />
+            <MobileFooterAccordion title="Projects" items={projectLinks} />
           </div>
 
           <div className="hidden md:block">
@@ -119,6 +160,15 @@ export default function Footer() {
                 <Icon name="FiPhone" className="h-4 w-4 shrink-0 text-white" />
                 {contactDetails.phone}
               </a>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 transition hover:text-white"
+              >
+                <Icon name="FaWhatsapp" className="h-4 w-4 shrink-0 text-white" />
+                WhatsApp {whatsappNumber}
+              </a>
               <span className="flex items-center gap-3">
                 <Icon name="FiMapPin" className="h-4 w-4 shrink-0 text-white" />
                 {contactDetails.location}
@@ -128,8 +178,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-blue-100 md:flex-row md:items-center md:justify-between">
-          <p>Copyright {new Date().getFullYear()} Rapido Solutions Co. All rights reserved.</p>
-          <p>Built for websites, systems, support, and growth.</p>
+          <p>&copy; 2026 Rapido Solutions Co. All rights reserved.</p>
         </div>
       </div>
     </footer>
