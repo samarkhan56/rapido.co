@@ -4,10 +4,9 @@ import { useSearchParams } from "react-router-dom";
 import PageHero from "../components/common/PageHero";
 import SectionHeader from "../components/common/SectionHeader";
 import PortfolioCard from "../components/portfolio/PortfolioCard";
-import PortfolioFilter from "../components/portfolio/PortfolioFilter";
 import HomeCTA from "../components/home/HomeCTA";
 import Button from "../components/common/Button";
-import { projectCategories, projects } from "../data/portfolioData";
+import { projects } from "../data/portfolioData";
 import { listPublicProjects } from "../utils/projectApi";
 import { pageTransition } from "../utils/animations";
 import { usePageMeta } from "../utils/usePageMeta";
@@ -15,16 +14,11 @@ import { createBreadcrumbSchema, createWebPageSchema } from "../utils/seo";
 import { useStructuredData } from "../utils/useStructuredData";
 
 export default function Projects() {
-  const [active, setActive] = useState("All");
   const [availableProjects, setAvailableProjects] = useState(projects);
   const [searchParams] = useSearchParams();
   const projectType = searchParams.get("type");
   const normalizedType =
     projectType === "financial" ? "financial" : projectType === "human" ? "human" : projectType === "web" ? "web" : "all";
-
-  useEffect(() => {
-    setActive("All");
-  }, [normalizedType]);
 
   useEffect(() => {
     let activeRequest = true;
@@ -58,18 +52,11 @@ export default function Projects() {
 
   const visibleProjects = useMemo(
     () =>
-      availableProjects.filter((project) => {
-        const matchesType = normalizedType === "all" || project.type === normalizedType;
-        const matchesCategory = active === "All" || project.category === active;
-        return matchesType && matchesCategory;
-      }),
-    [active, availableProjects, normalizedType]
+      availableProjects.filter(
+        (project) => normalizedType === "all" || project.type === normalizedType
+      ),
+    [availableProjects, normalizedType]
   );
-
-  const availableCategories = useMemo(() => {
-    const categories = new Set(availableProjects.map((project) => project.category));
-    return [...projectCategories, ...[...categories].filter((category) => !projectCategories.includes(category))];
-  }, [availableProjects]);
 
   const filterDescription =
     normalizedType === "financial"
@@ -78,7 +65,7 @@ export default function Projects() {
         ? "Human resource project examples for talent acquisition, HR policies, SOPs, training, and development support."
       : normalizedType === "web"
         ? "Web project examples for websites, Shopify, WordPress, SEO, UX, and performance work."
-        : "Use the filters to explore sample directions by business type and service focus.";
+        : "Explore sample directions by business type and service focus.";
 
   return (
     <motion.main {...pageTransition}>
@@ -97,20 +84,7 @@ export default function Projects() {
             title="Project Styles Built Around Real Business Needs"
             description={filterDescription}
           />
-          <PortfolioFilter
-            categories={
-              normalizedType === "financial"
-                ? ["All", "Financial Projects"]
-                : normalizedType === "human"
-                  ? ["All", "Human Resource Projects"]
-                : normalizedType === "web"
-                  ? availableCategories.filter((category) => !["Financial Projects", "Human Resource Projects"].includes(category))
-                  : availableCategories
-            }
-            active={active}
-            onChange={setActive}
-          />
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visibleProjects.map((project, index) => (
               <PortfolioCard key={project.id || project.slug || project.title} project={project} index={index} />
             ))}
@@ -122,3 +96,4 @@ export default function Projects() {
     </motion.main>
   );
 }
+
